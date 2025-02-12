@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "noEmitOnError": false,
     "outDir": "./dist" // Specify the output directory here
   }
