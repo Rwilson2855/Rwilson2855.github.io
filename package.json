@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://rwilson2855.github.io/",
   "scripts": {
-    "dev": "vite",
+    "start": "vite --host",
     "test": "vitest",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
