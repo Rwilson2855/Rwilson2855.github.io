@@ -1,11 +1,10 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
-  Link
 } from "react-router-dom";
+import LandingPage from "./ResumeLandingPage";
 import Login from "./Login";
 import Search from "./Search";
 import Favorites from "./Favorites";
@@ -18,13 +17,18 @@ function App() {
   return (
     <Router>
       <div>
-        {/* Add this Link component wherever you want the button to appear */}
-        <Link to="/solitaire" target="_blank" rel="noopener">
-          Play Solitaire
-        </Link>
         <Routes>
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/solitaire" element={<iframe src="../../public/solitaire/index.html" width={window.innerWidth} height={window.innerHeight}/>} />
+          <Route path="/solitaire" element={
+            <iframe
+              src="../../public/solitaire/index.html"
+              width={window.innerWidth}
+              height={window.innerHeight}
+              title="Solitaire"
+              style={{ border: "none" }}
+            />
+          } />
           <Route
             path="/search"
             element={
@@ -45,12 +49,10 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/" element={<Navigate to="/search" />} />
         </Routes>
       </div>
     </Router>
   );
-
 }
 
 export default App;
