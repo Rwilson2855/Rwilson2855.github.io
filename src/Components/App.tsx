@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <div>
-        {/* Add this Link component wherever you want the button to appear */}
+        {}
         <Link to="/solitaire" target="_blank" rel="noopener">
           Play Solitaire
         </Link>
