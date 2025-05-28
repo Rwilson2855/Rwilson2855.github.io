@@ -427,9 +427,9 @@ function moveCards(fromPile, toPile, startIndex) {
     }
 }
 
-function handleFoundationClick(game, pileIndex) {  
-    const foundation = game.foundations[pileIndex];  
-    if (foundation && foundation.length > 0) {  
+function handleFoundationClick(game, pileIndex) {
+    const foundation = game.foundations[pileIndex];
+    if (foundation && foundation.length > 0) {
         const card = foundation[foundation.length - 1];
         for (let i = 0; i < game.tableau.length; i++) {
             if (canMoveToTableau(card, game.tableau[i])) {
@@ -461,3 +461,4 @@ function handleWasteCardClick() {
         }
     }
 }
+// Finished solitaire game, needs some edits
