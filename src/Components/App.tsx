@@ -49,6 +49,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<LandingPage />} />
         </Routes>
       </div>
     </Router>
