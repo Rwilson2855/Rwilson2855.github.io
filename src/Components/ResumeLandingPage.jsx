@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const styles = {
+const baseStyles = {
   container: {
-    maxWidth: "600px",
-    margin: "3rem auto",
+    width: "100vw",
+    minHeight: "100vh",
     padding: "2rem",
-    borderRadius: "16px",
+    borderRadius: "0",
     background: "linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%)",
-    boxShadow: "0 4px 24px rgba(80, 80, 160, 0.10)",
+    boxShadow: "none",
     fontFamily: "system-ui, sans-serif",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   avatar: {
     width: "100px",
@@ -17,17 +21,15 @@ const styles = {
     borderRadius: "50%",
     objectFit: "cover",
     marginBottom: "1rem",
-    border: "4px solid #6366f1"
+    border: "4px solid",
   },
   name: {
     fontSize: "2rem",
     fontWeight: "bold",
-    color: "#3730a3",
     margin: "0.5rem 0",
   },
   headline: {
     fontSize: "1.2rem",
-    color: "#6366f1",
     marginBottom: "1.5rem",
   },
   section: {
@@ -36,7 +38,6 @@ const styles = {
   sectionTitle: {
     fontSize: "1.1rem",
     fontWeight: "bold",
-    color: "#6366f1",
     marginBottom: "0.5rem",
     textTransform: "uppercase",
     letterSpacing: "1px"
@@ -46,28 +47,99 @@ const styles = {
     marginBottom: 0,
   },
   projectLink: {
-    color: "#2563eb",
     textDecoration: "none",
     fontWeight: "bold",
   },
   contactLink: {
-    color: "#3730a3",
     textDecoration: "underline",
     marginRight: "1rem"
   }
 };
 
+const lightTheme = {
+  container: {
+    background: "linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%)",
+    color: "#22223b",
+  },
+  avatar: {
+    borderColor: "#6366f1"
+  },
+  name: {
+    color: "#3730a3",
+  },
+  headline: {
+    color: "#6366f1",
+  },
+  sectionTitle: {
+    color: "#6366f1",
+  },
+  projectLink: {
+    color: "#2563eb",
+  },
+  contactLink: {
+    color: "#3730a3",
+  }
+};
+
+const darkTheme = {
+  container: {
+    background: "linear-gradient(135deg, #232946 60%, #121629 100%)",
+    color: "#f4f4f8",
+    boxShadow: "0 4px 24px rgba(40, 40, 80, 0.25)",
+  },
+  avatar: {
+    borderColor: "#a5b4fc"
+  },
+  name: {
+    color: "#a5b4fc",
+  },
+  headline: {
+    color: "#b9c0ff",
+  },
+  sectionTitle: {
+    color: "#a5b4fc",
+  },
+  projectLink: {
+    color: "#60a5fa",
+  },
+  contactLink: {
+    color: "#a5b4fc",
+  }
+};
+
+function mergeStyles(base, theme) {
+  // Merge base and theme styles for each key
+  const merged = {};
+  for (const key in base) {
+    merged[key] = { ...base[key], ...(theme[key] || {}) };
+  }
+  return merged;
+}
+
 function ResumeLandingPage() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const matcher = window.matchMedia("(prefers-color-scheme: dark)");
+    setIsDark(matcher.matches);
+
+    const handleChange = (e) => setIsDark(e.matches);
+    matcher.addEventListener("change", handleChange);
+
+    return () => matcher.removeEventListener("change", handleChange);
+  }, []);
+
+  const styles = mergeStyles(baseStyles, isDark ? darkTheme : lightTheme);
+
   return (
     <div style={styles.container}>
-      {/* Avatar (replace src with your image if you want) */}
       <img
-        src="https://i.pravatar.cc/100?img=3"
-        alt="Your Avatar"
+        src=""
+        alt="My Avatar"
         style={styles.avatar}
       />
       <div style={styles.name}>Ryan Wilson</div>
-      <div style={styles.headline}>Frontend Developer & React Enthusiast</div>
+      <div style={styles.headline}>Fullstack Developer & React Enthusiast</div>
       <p>
         I build beautiful, performant web apps with React and modern JavaScript. I love clean code, great UX, and learning new things!
       </p>
